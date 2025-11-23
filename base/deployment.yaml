@@ -5,7 +5,7 @@ metadata:
   labels:
     app: myapp
 spec:
-  replicas: {{ .Values.replicas }}
+  replicas: 1
   selector:
     matchLabels:
       app: myapp
@@ -16,13 +16,6 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: nginx:{{ .Values.imageTag }}
+        image: nginx
         ports:
         - containerPort: 80
-        resources:
-          requests:
-            memory: "64Mi"
-            cpu: "100m"
-          limits:
-            memory: "128Mi"
-            cpu: "200m"

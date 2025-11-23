@@ -1,3 +1,4 @@
+# base/kustomization.yaml
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
@@ -5,3 +6,17 @@ resources:
   - deployment.yaml
   - service.yaml
   - ingress.yaml
+
+# These will be overridden per-env via ApplicationSet patches
+replicas:
+  - name: myapp
+    count: 1
+
+patches:
+  - target:
+      kind: Ingress
+      name: myapp
+    patch: |-
+      - op: replace
+        path: /spec/rules/0/host
+        value: placeholder.minikube.local
